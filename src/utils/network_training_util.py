@@ -16,10 +16,9 @@ sigmoid = torch.nn.Sigmoid()
 def train(train_loader, model, optimiser, loss_fn, device, gamma):
     y_true = []
     predictions = []
-    mse = torch.nn.MSELoss()
     model.train()
     for (data_e, data_m, data_c, target) in train_loader:
-        if torch.mean(target) != 0. and torch.mean(target) != 1.:
+        if torch.mean(target) != 0.0 and torch.mean(target) != 1.0:
             optimiser.zero_grad()
             y_true.extend(target)
 
@@ -57,28 +56,29 @@ class BceWithTripletsToss:
         zt = predictions[1]
         triplets = self.triplet_selector.get_triplets(zt, target)
         target = torch.squeeze(target.view(-1, 1))
-        loss = self.gamma * self.trip_criterion(zt[triplets[:, 0], :], zt[triplets[:, 1], :],
-                                                zt[triplets[:, 2], :]) + self.bce_with_logits(prediction, target)
+        loss = self.gamma * self.trip_criterion(
+            zt[triplets[:, 0], :], zt[triplets[:, 1], :], zt[triplets[:, 2], :]
+        ) + self.bce_with_logits(prediction, target)
         return loss
 
 
 def read_and_transpose_csv(path):
-    csv_data = pd.read_csv(path, sep="\t", index_col=0, decimal=',')
+    csv_data = pd.read_csv(path, sep="\t", index_col=0, decimal=",")
     return pd.DataFrame.transpose(csv_data)
 
 
 def calculate_mean_and_std_auc(result_dict, result_file, drug_name):
-    result_file.write(f'\tMean Result for {drug_name}:\n\n')
+    result_file.write(f"\tMean Result for {drug_name}:\n\n")
     for result_name, result_value in result_dict.items():
         mean = np.mean(result_value)
         std = np.std(result_value)
         max_value = np.max(result_value)
         min_value = np.min(result_value)
-        result_file.write(f'\t\t{result_name} max: {max_value}\n')
-        result_file.write(f'\t\t{result_name} min: {min_value}\n')
-        result_file.write(f'\t\t{result_name} mean: {mean}\n')
-        result_file.write(f'\t\t{result_name} std: {std}\n')
-        result_file.write('\n')
+        result_file.write(f"\t\t{result_name} max: {max_value}\n")
+        result_file.write(f"\t\t{result_name} min: {min_value}\n")
+        result_file.write(f"\t\t{result_name} mean: {mean}\n")
+        result_file.write(f"\t\t{result_name} std: {std}\n")
+        result_file.write("\n")
 
 
 def test(moli_model, scaler, x_test_e, x_test_m, x_test_c, test_y, device):
@@ -90,17 +90,30 @@ def test(moli_model, scaler, x_test_e, x_test_m, x_test_c, test_y, device):
     predictions = moli_model.forward(x_test_e, x_test_m, x_test_c)
     probabilities = sigmoid(predictions[0])
     auc_validate = roc_auc_score(test_y, probabilities.cpu().detach().numpy())
-    auprc_validate = average_precision_score(test_y, probabilities.cpu().detach().numpy())
+    auprc_validate = average_precision_score(
+        test_y, probabilities.cpu().detach().numpy()
+    )
     return auc_validate, auprc_validate
 
 
-def create_data_loader(x_test_e, x_test_m, x_test_c, test_y, train_batch_size, pin_memory, sampler=None):
-    dataset = torch.utils.data.TensorDataset(torch.FloatTensor(x_test_e),
-                                             torch.FloatTensor(x_test_m),
-                                             torch.FloatTensor(x_test_c), torch.FloatTensor(test_y))
-    loader = torch.utils.data.DataLoader(dataset=dataset, batch_size=train_batch_size, shuffle=False,
-                                         num_workers=8, pin_memory=pin_memory, drop_last=True,
-                                         sampler=sampler)
+def create_data_loader(
+    x_test_e, x_test_m, x_test_c, test_y, train_batch_size, pin_memory, sampler=None
+):
+    dataset = torch.utils.data.TensorDataset(
+        torch.FloatTensor(x_test_e),
+        torch.FloatTensor(x_test_m),
+        torch.FloatTensor(x_test_c),
+        torch.FloatTensor(test_y),
+    )
+    loader = torch.utils.data.DataLoader(
+        dataset=dataset,
+        batch_size=train_batch_size,
+        shuffle=False,
+        num_workers=8,
+        pin_memory=pin_memory,
+        drop_last=True,
+        sampler=sampler,
+    )
     return loader
 
 
@@ -133,40 +146,72 @@ def feature_selection(gdsce, gdscm, gdscc):
 
 
 def create_sampler(y_train):
-    class_sample_count = np.array([len(np.where(y_train == t)[0]) for t in np.unique(y_train)])
-    weight = 1. / class_sample_count
+    class_sample_count = np.array(
+        [len(np.where(y_train == t)[0]) for t in np.unique(y_train)]
+    )
+    weight = 1.0 / class_sample_count
     samples_weight = np.array([weight[t] for t in y_train])
-    sampler = WeightedRandomSampler(samples_weight, len(samples_weight),
-                                    replacement=True)
+    sampler = WeightedRandomSampler(
+        samples_weight, len(samples_weight), replacement=True
+    )
     return sampler
 
 
-def train_encoder(epochs, optimizer, triplet_selector, device, encoder, train_loader, trip_loss_fun, omic_number):
+def train_encoder(
+    epochs,
+    optimizer,
+    triplet_selector,
+    device,
+    encoder,
+    train_loader,
+    trip_loss_fun,
+    omic_number,
+):
     encoder.train()
     for _ in trange(epochs):
         for data in train_loader:
             single_omic_data = data[omic_number]
             target = data[-1]
-            if torch.mean(target) != 0. and torch.mean(target) != 1.:
+            if torch.mean(target) != 0.0 and torch.mean(target) != 1.0:
                 optimizer.zero_grad()
                 single_omic_data = single_omic_data.to(device)
 
                 encoded_data = encoder(single_omic_data)
                 triplets = triplet_selector.get_triplets(encoded_data, target)
-                loss = trip_loss_fun(encoded_data[triplets[:, 0], :],
-                                     encoded_data[triplets[:, 1], :],
-                                     encoded_data[triplets[:, 2], :])
+                loss = trip_loss_fun(
+                    encoded_data[triplets[:, 0], :],
+                    encoded_data[triplets[:, 1], :],
+                    encoded_data[triplets[:, 2], :],
+                )
                 loss.backward()
                 optimizer.step()
     encoder.eval()
 
 
-def train_validate_classifier(classifier_epoch, device, e_supervised_encoder,
-                              m_supervised_encoder, c_supervised_encoder, train_loader,
-                              classifier_optimizer,
-                              x_val_e, x_val_m, x_val_c, y_val, classifier):
-    train_classifier(classifier, classifier_epoch, train_loader, classifier_optimizer, e_supervised_encoder,
-                     m_supervised_encoder, c_supervised_encoder, device)
+def train_validate_classifier(
+    classifier_epoch,
+    device,
+    e_supervised_encoder,
+    m_supervised_encoder,
+    c_supervised_encoder,
+    train_loader,
+    classifier_optimizer,
+    x_val_e,
+    x_val_m,
+    x_val_c,
+    y_val,
+    classifier,
+):
+    train_classifier(
+        classifier,
+        classifier_epoch,
+        train_loader,
+        classifier_optimizer,
+        e_supervised_encoder,
+        m_supervised_encoder,
+        c_supervised_encoder,
+        device,
+    )
 
     with torch.no_grad():
         classifier.eval()
@@ -184,12 +229,20 @@ def train_validate_classifier(classifier_epoch, device, e_supervised_encoder,
     return val_auroc
 
 
-def train_classifier(classifier, classifier_epoch, train_loader, classifier_optimizer, e_supervised_encoder,
-                     m_supervised_encoder, c_supervised_encoder, device):
+def train_classifier(
+    classifier,
+    classifier_epoch,
+    train_loader,
+    classifier_optimizer,
+    e_supervised_encoder,
+    m_supervised_encoder,
+    c_supervised_encoder,
+    device,
+):
     bce_loss_function = torch.nn.BCEWithLogitsLoss()
-    for cl_epoch in range(classifier_epoch):
+    for _ in range(classifier_epoch):
         classifier.train()
-        for i, (dataE, dataM, dataC, target) in enumerate(train_loader):
+        for _, (dataE, dataM, dataC, target) in enumerate(train_loader):
             classifier_optimizer.zero_grad()
             dataE = dataE.to(device)
             dataM = dataM.to(device)
@@ -200,14 +253,26 @@ def train_classifier(classifier, classifier_epoch, train_loader, classifier_opti
             encoded_m = m_supervised_encoder(dataM)
             encoded_c = c_supervised_encoder(dataC)
             predictions = classifier(encoded_e, encoded_m, encoded_c)
-            cl_loss = bce_loss_function(torch.squeeze(predictions), torch.squeeze(target))
+            cl_loss = bce_loss_function(
+                torch.squeeze(predictions), torch.squeeze(target)
+            )
             cl_loss.backward()
             classifier_optimizer.step()
     classifier.eval()
 
 
-def super_felt_test(x_test_e, x_test_m, x_test_c, y_test, device, final_c_supervised_encoder, final_classifier,
-                    final_e_supervised_encoder, final_m_supervised_encoder, final_scaler_gdsc):
+def super_felt_test(
+    x_test_e,
+    x_test_m,
+    x_test_c,
+    y_test,
+    device,
+    final_c_supervised_encoder,
+    final_classifier,
+    final_e_supervised_encoder,
+    final_m_supervised_encoder,
+    final_scaler_gdsc,
+):
     x_test_e = torch.FloatTensor(final_scaler_gdsc.transform(x_test_e))
     encoded_test_E = final_e_supervised_encoder(torch.FloatTensor(x_test_e).to(device))
     encoded_test_M = final_m_supervised_encoder(torch.FloatTensor(x_test_m).to(device))

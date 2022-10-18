@@ -141,3 +141,4 @@ nohup.out
 *.pdf
 *.txt
 *.svg
+*.pyc

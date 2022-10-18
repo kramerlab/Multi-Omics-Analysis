@@ -4,3 +4,4 @@ python src/experiments/moma/optimise_moma.py --experiment_name moma
 python src/experiments/omiEmbed/optimise_omiEmbed.py --experiment_name omiEmbed 
 python src/experiments/super.felt/optimise.felt.py --experiment_name super.felt 
 python src/experiments/stacking/optimise_stacking.py --experiment_name stacking 
+python src/experiments/pca/optimise_pca.py --experiment_name pca 
