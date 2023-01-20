@@ -1,0 +1,55 @@
+Start experiment at 2022-10-31 16:28:41.171739
+	iteration = 0. 
+		str(best_parameters) = "{'gamma': 0.0, 'margin': 0.5, 'mini_batch': 16, 'latent_space_dim': 256, 'lr_vae': 0.001, 'lr_classifier': 0.01, 'weight_decay': 0.0001, 'epochs_phase': 13, 'k_kl': 0.001, 'k_embed': 0.01, 'leaky_slope': 0.0001, 'dropout': 0.3, 'dim_1B': 256, 'dim_1A': 64, 'dim_1C': 32, 'class_dim_1': 128}"
+		Best Paclitaxel validation Auroc = 0.7708620689655172
+	iteration = 1. 
+		str(best_parameters) = "{'gamma': 0.0, 'margin': 1.0, 'mini_batch': 16, 'latent_space_dim': 512, 'lr_vae': 0.01, 'lr_classifier': 0.001, 'weight_decay': 0.05, 'epochs_phase': 5, 'k_kl': 0.001, 'k_embed': 0.001, 'leaky_slope': 0.01, 'dropout': 0.3, 'dim_1B': 32, 'dim_1A': 512, 'dim_1C': 32, 'class_dim_1': 128}"
+		Best Paclitaxel validation Auroc = 0.7523275862068965
+	iteration = 2. 
+		str(best_parameters) = "{'gamma': 0.1, 'margin': 0.5, 'mini_batch': 8, 'latent_space_dim': 256, 'lr_vae': 0.001, 'lr_classifier': 0.01, 'weight_decay': 0.1, 'epochs_phase': 17, 'k_kl': 0.001, 'k_embed': 0.01, 'leaky_slope': 0.01, 'dropout': 0.3, 'dim_1B': 256, 'dim_1A': 512, 'dim_1C': 512, 'class_dim_1': 1024}"
+		Best Paclitaxel validation Auroc = 0.7612068965517242
+	iteration = 3. 
+		str(best_parameters) = "{'gamma': 0.0, 'margin': 1.0, 'mini_batch': 32, 'latent_space_dim': 512, 'lr_vae': 0.001, 'lr_classifier': 0.001, 'weight_decay': 0.05, 'epochs_phase': 8, 'k_kl': 0.01, 'k_embed': 0.01, 'leaky_slope': 0.05, 'dropout': 0.7, 'dim_1B': 512, 'dim_1A': 128, 'dim_1C': 256, 'class_dim_1': 1024}"
+		Best Paclitaxel validation Auroc = 0.7951928696668615
+	iteration = 4. 
+		str(best_parameters) = "{'gamma': 0.0, 'margin': 1.0, 'mini_batch': 16, 'latent_space_dim': 256, 'lr_vae': 0.01, 'lr_classifier': 0.001, 'weight_decay': 0.05, 'epochs_phase': 6, 'k_kl': 0.01, 'k_embed': 0.01, 'leaky_slope': 0.0001, 'dropout': 0.1, 'dim_1B': 32, 'dim_1A': 128, 'dim_1C': 32, 'class_dim_1': 1024}"
+		Best Paclitaxel validation Auroc = 0.6996595558153126
+	Minutes needed: 596	Mean Result for Paclitaxel:
+
+		validation auroc max: 0.7951928696668615
+		validation auroc min: 0.6996595558153126
+		validation auroc mean: 0.7558497954412624
+		validation auroc std: 0.031533136112058595
+
+		test auroc max: 0.9611111111111111
+		test auroc min: 0.40684931506849314
+		test auroc mean: 0.6243531202435312
+		test auroc std: 0.18631366166511754
+
+		test auprc max: 0.7158119658119657
+		test auprc min: 0.08142824395407817
+		test auprc mean: 0.24008881738683835
+		test auprc std: 0.2391261820521535
+
+		extern auroc max: 0.6657894736842105
+		extern auroc min: 0.3684210526315789
+		extern auroc mean: 0.5331578947368423
+		extern auroc std: 0.10414671092320625
+
+		extern auprc max: 0.26603260869565215
+		extern auprc min: 0.10564939370973853
+		extern auprc mean: 0.1637945997888871
+		extern auprc std: 0.05679435966380509
+
+
+ No skill predictor extern AUPRC: 0.11627906976744186 
+
+ test auroc list: [0.5726027397260274, 0.40684931506849314, 0.6534246575342466, 0.5277777777777777, 0.9611111111111111] 
+
+ test auprc list: [0.15402930402930404, 0.08142824395407817, 0.111673802860496, 0.13750077027834778, 0.7158119658119657] 
+
+ extern auroc list: [0.6210526315789475, 0.6657894736842105, 0.3684210526315789, 0.4947368421052632, 0.5157894736842106] 
+
+ extern auprc list: [0.18175068137916436, 0.26603260869565215, 0.10564939370973853, 0.12791896710374973, 0.13762134805613066] 
+
+ validation auroc list: [0.7708620689655172, 0.7523275862068965, 0.7612068965517242, 0.7951928696668615, 0.6996595558153126] 

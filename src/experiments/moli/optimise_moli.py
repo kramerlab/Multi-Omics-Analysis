@@ -15,7 +15,7 @@ from utils.experiment_utils import create_generation_strategy
 from utils.input_arguments import get_cmd_arguments
 from utils.searchspaces import create_moli_search_space
 from utils.choose_gpu import get_free_gpu
-from training_moli import train_final, optimise_hyperparameter, reset_best_auroc
+from train_moli import train_final, optimise_hyperparameter, reset_best_auroc
 from utils import multi_omics_data
 from utils.visualisation import save_auroc_plots, save_auroc_with_variance_plots
 from utils.network_training_util import calculate_mean_and_std_auc, test
@@ -27,11 +27,18 @@ with open((file_directory / "../../config/hyperparameter.yaml"), "r") as stream:
 
 
 def moli(
-    search_iterations, experiment_name, drug_name, extern_dataset_name, gpu_number
+    search_iterations,
+    experiment_name,
+    drug_name,
+    extern_dataset_name,
+    gpu_number,
+    deactivate_triplet_loss,
 ):
     device, pin_memory = create_device(gpu_number)
 
-    result_path = Path(file_directory, "..", "..", "..", "results", "moli", drug_name, experiment_name)
+    result_path = Path(
+        file_directory, "..", "..", "..", "results", "moli", drug_name, experiment_name
+    )
     result_path.mkdir(parents=True, exist_ok=True)
 
     result_file = open(result_path / "results.txt", "w")
@@ -52,7 +59,7 @@ def moli(
         data_path, drug_name, extern_dataset_name
     )
 
-    moli_search_space = create_moli_search_space()
+    moli_search_space = create_moli_search_space(deactivate_triplet_loss)
 
     torch.manual_seed(parameter["random_seed"])
     np.random.seed(parameter["random_seed"])
@@ -191,14 +198,6 @@ def create_device(gpu_number):
     return device, pin_memory
 
 
-def extract_best_parameter(experiment):
-    data = experiment.fetch_data()
-    df = data.df
-    best_arm_name = df.arm_name[df["mean"] == df["mean"].max()].values[0]
-    best_arm = experiment.arms_by_name[best_arm_name]
-    best_parameters = best_arm.parameters
-    return best_parameters
-
 
 if __name__ == "__main__":
     args = get_cmd_arguments()
@@ -210,6 +209,7 @@ if __name__ == "__main__":
                 drug,
                 extern_dataset,
                 args.gpu_number,
+                args.deactivate_triplet_loss,
             )
     else:
         extern_dataset = parameter["drugs"][args.drug]

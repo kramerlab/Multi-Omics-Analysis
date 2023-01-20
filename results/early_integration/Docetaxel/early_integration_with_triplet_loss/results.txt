@@ -1,0 +1,55 @@
+Start experiment at 2022-10-29 11:28:54.210564
+	iteration = 0. 
+		str(best_parameters) = "{'mini_batch': 16, 'h_dim': 512, 'lr': 0.01, 'dropout_rate': 0.1, 'weight_decay': 0.1, 'margin': 1.0, 'epochs': 18, 'gamma': 0.1}"
+		Best Docetaxel validation Auroc = 0.7776850471932439
+	iteration = 1. 
+		str(best_parameters) = "{'mini_batch': 32, 'h_dim': 32, 'lr': 0.01, 'dropout_rate': 0.5, 'weight_decay': 0.0001, 'margin': 1.0, 'epochs': 8, 'gamma': 0.1}"
+		Best Docetaxel validation Auroc = 0.7716909599796445
+	iteration = 2. 
+		str(best_parameters) = "{'mini_batch': 32, 'h_dim': 64, 'lr': 0.01, 'dropout_rate': 0.3, 'weight_decay': 0.1, 'margin': 0.2, 'epochs': 12, 'gamma': 0.3}"
+		Best Docetaxel validation Auroc = 0.8199126410042042
+	iteration = 3. 
+		str(best_parameters) = "{'mini_batch': 16, 'h_dim': 256, 'lr': 0.01, 'dropout_rate': 0.5, 'weight_decay': 0.1, 'margin': 0.2, 'epochs': 14, 'gamma': 0.0}"
+		Best Docetaxel validation Auroc = 0.7212448353991736
+	iteration = 4. 
+		str(best_parameters) = "{'mini_batch': 8, 'h_dim': 32, 'lr': 0.01, 'dropout_rate': 0.5, 'weight_decay': 0.0001, 'margin': 0.2, 'epochs': 19, 'gamma': 0.5}"
+		Best Docetaxel validation Auroc = 0.7574308458434807
+	Minutes needed: 836	Mean Result for Docetaxel:
+
+		validation auroc max: 0.8199126410042042
+		validation auroc min: 0.7212448353991736
+		validation auroc mean: 0.7695928658839495
+		validation auroc std: 0.031897999776009385
+
+		test auroc max: 0.8652589240824535
+		test auroc min: 0.5927601809954751
+		test auroc mean: 0.7537720621311953
+		test auroc std: 0.08914811705270276
+
+		test auprc max: 0.47138564681668127
+		test auprc min: 0.18403757915134494
+		test auprc mean: 0.3175674002093613
+		test auprc std: 0.10526311186397974
+
+		extern auroc max: 0.59375
+		extern auroc min: 0.421875
+		extern auroc mean: 0.50625
+		extern auroc std: 0.06599597525607148
+
+		extern auprc max: 0.6094020562770563
+		extern auprc min: 0.45966880341880334
+		extern auprc mean: 0.5461997724497725
+		extern auprc std: 0.06379424663207718
+
+
+ No skill predictor extern AUPRC: 0.5 
+
+ test auroc list: [0.7581699346405228, 0.7631975867269984, 0.5927601809954751, 0.8652589240824535, 0.7894736842105263] 
+
+ test auprc list: [0.32578702545006133, 0.22134560439120138, 0.18403757915134494, 0.47138564681668127, 0.3852811452375178] 
+
+ extern auroc list: [0.53125, 0.4375, 0.546875, 0.59375, 0.421875] 
+
+ extern auprc list: [0.5839556277056277, 0.47841880341880344, 0.6094020562770563, 0.5995535714285715, 0.45966880341880334] 
+
+ validation auroc list: [0.7776850471932439, 0.7716909599796445, 0.8199126410042042, 0.7212448353991736, 0.7574308458434807] 

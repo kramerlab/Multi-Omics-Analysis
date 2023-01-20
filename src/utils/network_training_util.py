@@ -27,7 +27,7 @@ def train(train_loader, model, optimiser, loss_fn, device, gamma):
             data_c = data_c.to(device)
             target = target.to(device)
 
-            prediction = model.forward(data_e, data_m, data_c)
+            prediction = model.forward_with_features(data_e, data_m, data_c)
             if gamma > 0:
                 loss = loss_fn(prediction, target)
             else:
@@ -87,7 +87,7 @@ def test(moli_model, scaler, x_test_e, x_test_m, x_test_c, test_y, device):
     x_test_c = torch.FloatTensor(x_test_c).to(device)
     test_y = torch.FloatTensor(test_y.astype(int))
     moli_model.eval()
-    predictions = moli_model.forward(x_test_e, x_test_m, x_test_c)
+    predictions = moli_model.forward_with_features(x_test_e, x_test_m, x_test_c)
     probabilities = sigmoid(predictions[0])
     auc_validate = roc_auc_score(test_y, probabilities.cpu().detach().numpy())
     auprc_validate = average_precision_score(
@@ -117,12 +117,9 @@ def create_data_loader(
     return loader
 
 
-def get_triplet_selector():
-    return AllTripletSelector()
-
-
-def get_loss_fn(margin, gamma, triplet_selector):
-    if triplet_selector is not None and gamma > 0:
+def get_loss_fn(margin, gamma):
+    if gamma > 0:
+        triplet_selector = AllTripletSelector()
         trip_criterion = torch.nn.TripletMarginLoss(margin=margin, p=2)
         return BceWithTripletsToss(gamma, triplet_selector, trip_criterion)
     else:
@@ -160,13 +157,13 @@ def create_sampler(y_train):
 def train_encoder(
     epochs,
     optimizer,
-    triplet_selector,
     device,
     encoder,
     train_loader,
     trip_loss_fun,
     omic_number,
 ):
+    triplet_selector = AllTripletSelector()
     encoder.train()
     for _ in trange(epochs):
         for data in train_loader:
@@ -188,12 +185,37 @@ def train_encoder(
     encoder.eval()
 
 
+def train_autoencoder(
+    epochs,
+    optimizer,
+    device,
+    autoencoder,
+    train_loader,
+    reconstruction_loss,
+    omic_number,
+):
+    autoencoder.train()
+    for _ in trange(epochs):
+        for data in train_loader:
+            single_omic_data = data[omic_number]
+            target = data[-1]
+            if torch.mean(target) != 0.0 and torch.mean(target) != 1.0:
+                optimizer.zero_grad()
+                single_omic_data = single_omic_data.to(device)
+
+                reconstructed_data = autoencoder(single_omic_data)
+                loss = reconstruction_loss(reconstructed_data, single_omic_data)
+                loss.backward()
+                optimizer.step()
+    autoencoder.eval()
+
+
 def train_validate_classifier(
     classifier_epoch,
     device,
-    e_supervised_encoder,
-    m_supervised_encoder,
-    c_supervised_encoder,
+    e_encoder,
+    m_encoder,
+    c_encoder,
     train_loader,
     classifier_optimizer,
     x_val_e,
@@ -207,9 +229,9 @@ def train_validate_classifier(
         classifier_epoch,
         train_loader,
         classifier_optimizer,
-        e_supervised_encoder,
-        m_supervised_encoder,
-        c_supervised_encoder,
+        e_encoder,
+        m_encoder,
+        c_encoder,
         device,
     )
 
@@ -218,12 +240,11 @@ def train_validate_classifier(
         """
             inner validation
         """
-        encoded_val_E = e_supervised_encoder(x_val_e)
-        encoded_val_M = m_supervised_encoder(torch.FloatTensor(x_val_m).to(device))
-        encoded_val_C = c_supervised_encoder(torch.FloatTensor(x_val_c).to(device))
-        test_Pred = classifier(encoded_val_E, encoded_val_M, encoded_val_C)
-        test_y_pred = test_Pred.cpu()
-        test_y_pred = sigmoid(test_y_pred)
+        encoded_val_E = e_encoder.encode(x_val_e)
+        encoded_val_M = m_encoder.encode(torch.FloatTensor(x_val_m).to(device))
+        encoded_val_C = c_encoder.encode(torch.FloatTensor(x_val_c).to(device))
+        test_Pred = classifier(encoded_val_E, encoded_val_M, encoded_val_C).cpu()
+        test_y_pred = sigmoid(test_Pred)
         val_auroc = roc_auc_score(y_val, test_y_pred.detach().numpy())
 
     return val_auroc
@@ -234,9 +255,9 @@ def train_classifier(
     classifier_epoch,
     train_loader,
     classifier_optimizer,
-    e_supervised_encoder,
-    m_supervised_encoder,
-    c_supervised_encoder,
+    e_encoder,
+    m_encoder,
+    c_encoder,
     device,
 ):
     bce_loss_function = torch.nn.BCEWithLogitsLoss()
@@ -249,9 +270,9 @@ def train_classifier(
             dataC = dataC.to(device)
             target = target.to(device)
 
-            encoded_e = e_supervised_encoder(dataE)
-            encoded_m = m_supervised_encoder(dataM)
-            encoded_c = c_supervised_encoder(dataC)
+            encoded_e = e_encoder.encode(dataE)
+            encoded_m = m_encoder.encode(dataM)
+            encoded_c = c_encoder.encode(dataC)
             predictions = classifier(encoded_e, encoded_m, encoded_c)
             cl_loss = bce_loss_function(
                 torch.squeeze(predictions), torch.squeeze(target)
@@ -267,19 +288,24 @@ def super_felt_test(
     x_test_c,
     y_test,
     device,
-    final_c_supervised_encoder,
+    final_c_encoder,
     final_classifier,
-    final_e_supervised_encoder,
-    final_m_supervised_encoder,
+    final_e_encoder,
+    final_m_encoder,
     final_scaler_gdsc,
 ):
     x_test_e = torch.FloatTensor(final_scaler_gdsc.transform(x_test_e))
-    encoded_test_E = final_e_supervised_encoder(torch.FloatTensor(x_test_e).to(device))
-    encoded_test_M = final_m_supervised_encoder(torch.FloatTensor(x_test_m).to(device))
-    encoded_test_C = final_c_supervised_encoder(torch.FloatTensor(x_test_c).to(device))
-    test_prediction = final_classifier(encoded_test_E, encoded_test_M, encoded_test_C)
-    test_y_true = y_test
-    test_y_prediction = test_prediction.cpu().detach().numpy()
-    test_AUC = roc_auc_score(test_y_true, test_y_prediction)
-    test_AUCPR = average_precision_score(test_y_true, test_y_prediction)
+
+    encoded_test_E = final_e_encoder.encode(torch.FloatTensor(x_test_e).to(device))
+    encoded_test_M = final_m_encoder.encode(torch.FloatTensor(x_test_m).to(device))
+    encoded_test_C = final_c_encoder.encode(torch.FloatTensor(x_test_c).to(device))
+
+    test_prediction = (
+        final_classifier(encoded_test_E, encoded_test_M, encoded_test_C)
+        .cpu()
+        .detach()
+        .numpy()
+    )
+    test_AUC = roc_auc_score(y_test, test_prediction)
+    test_AUCPR = average_precision_score(y_test, test_prediction)
     return test_AUC, test_AUCPR

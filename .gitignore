@@ -142,3 +142,8 @@ nohup.out
 *.txt
 *.svg
 *.pyc
+.vscode/launch.json
+epost.dtd
+esummary_gene.dtd
+**/*.pyc
+*.pyc

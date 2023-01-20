@@ -1,0 +1,55 @@
+Start experiment at 2022-10-29 20:44:29.826628
+	iteration = 0. 
+		str(best_parameters) = "{'gamma': 0.3, 'margin': 0.5, 'mini_batch': 16, 'latent_space_dim': 128, 'lr_vae': 0.001, 'lr_classifier': 0.001, 'weight_decay': 0.01, 'epochs_phase': 14, 'k_kl': 0.001, 'k_embed': 0.01, 'leaky_slope': 0.1, 'dropout': 0.7, 'dim_1B': 128, 'dim_1A': 256, 'dim_1C': 32, 'class_dim_1': 32}"
+		Best Docetaxel validation Auroc = 0.8284866659396848
+	iteration = 1. 
+		str(best_parameters) = "{'gamma': 0.3, 'margin': 0.5, 'mini_batch': 16, 'latent_space_dim': 1024, 'lr_vae': 0.01, 'lr_classifier': 0.001, 'weight_decay': 0.0001, 'epochs_phase': 12, 'k_kl': 0.001, 'k_embed': 0.001, 'leaky_slope': 0.0001, 'dropout': 0.1, 'dim_1B': 512, 'dim_1A': 256, 'dim_1C': 32, 'class_dim_1': 32}"
+		Best Docetaxel validation Auroc = 0.811976421552591
+	iteration = 2. 
+		str(best_parameters) = "{'gamma': 0.5, 'margin': 0.2, 'mini_batch': 32, 'latent_space_dim': 256, 'lr_vae': 0.001, 'lr_classifier': 0.01, 'weight_decay': 0.01, 'epochs_phase': 19, 'k_kl': 0.001, 'k_embed': 0.001, 'leaky_slope': 0.05, 'dropout': 0.5, 'dim_1B': 64, 'dim_1A': 1024, 'dim_1C': 256, 'class_dim_1': 1024}"
+		Best Docetaxel validation Auroc = 0.8668764009547696
+	iteration = 3. 
+		str(best_parameters) = "{'gamma': 0.1, 'margin': 0.2, 'mini_batch': 8, 'latent_space_dim': 512, 'lr_vae': 0.001, 'lr_classifier': 0.001, 'weight_decay': 0.1, 'epochs_phase': 7, 'k_kl': 0.001, 'k_embed': 0.01, 'leaky_slope': 0.01, 'dropout': 0.5, 'dim_1B': 128, 'dim_1A': 256, 'dim_1C': 32, 'class_dim_1': 64}"
+		Best Docetaxel validation Auroc = 0.8151512728242036
+	iteration = 4. 
+		str(best_parameters) = "{'gamma': 0.1, 'margin': 1.0, 'mini_batch': 16, 'latent_space_dim': 1024, 'lr_vae': 0.001, 'lr_classifier': 0.001, 'weight_decay': 0.001, 'epochs_phase': 3, 'k_kl': 0.001, 'k_embed': 0.001, 'leaky_slope': 0.1, 'dropout': 0.1, 'dim_1B': 256, 'dim_1A': 128, 'dim_1C': 32, 'class_dim_1': 256}"
+		Best Docetaxel validation Auroc = 0.8298281899361468
+	Minutes needed: 899	Mean Result for Docetaxel:
+
+		validation auroc max: 0.8668764009547696
+		validation auroc min: 0.811976421552591
+		validation auroc mean: 0.8304637902414791
+		validation auroc std: 0.019526634210246103
+
+		test auroc max: 0.8783308195072901
+		test auroc min: 0.684766214177979
+		test auroc mean: 0.787409039189225
+		test auroc std: 0.06539693596346507
+
+		test auprc max: 0.3666193055073786
+		test auprc min: 0.18153501725928506
+		test auprc mean: 0.3122274401295345
+		test auprc std: 0.07155710612400498
+
+		extern auroc max: 0.640625
+		extern auroc min: 0.46875
+		extern auroc mean: 0.55625
+		extern auroc std: 0.06218671481916375
+
+		extern auprc max: 0.5785037878787879
+		extern auprc min: 0.5255612443112443
+		extern auprc mean: 0.5449590687090687
+		extern auprc std: 0.02344906426254015
+
+
+ No skill predictor extern AUPRC: 0.5 
+
+ test auroc list: [0.8225238813474107, 0.7988939165409754, 0.684766214177979, 0.8783308195072901, 0.7525303643724697] 
+
+ test auprc list: [0.3633114062839536, 0.28853420048792694, 0.18153501725928506, 0.3611372711091286, 0.3666193055073786] 
+
+ extern auroc list: [0.515625, 0.546875, 0.46875, 0.640625, 0.609375] 
+
+ extern auprc list: [0.5262362637362638, 0.5255612443112443, 0.5261904761904761, 0.5785037878787879, 0.5683035714285715] 
+
+ validation auroc list: [0.8284866659396848, 0.811976421552591, 0.8668764009547696, 0.8151512728242036, 0.8298281899361468] 

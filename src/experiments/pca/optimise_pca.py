@@ -139,7 +139,12 @@ def pca(
             device,
         )
         auc_extern, auprc_extern = test_pca(
-            model_final, scaler_final, extern_e, extern_m, extern_c, extern_r, device
+            model_final,
+            pca_e.transform(scaler_final.transform(extern_e)),
+            pca_m.transform(extern_m),
+            pca_c.transform(extern_c),
+            extern_r,
+            device,
         )
 
         result_file.write(f"\t\tBest {drug_name} validation Auroc = {max_objective}\n")
@@ -192,15 +197,6 @@ def create_device(gpu_number):
         device = torch.device("cpu")
         pin_memory = False
     return device, pin_memory
-
-
-def extract_best_parameter(experiment):
-    data = experiment.fetch_data()
-    df = data.df
-    best_arm_name = df.arm_name[df["mean"] == df["mean"].max()].values[0]
-    best_arm = experiment.arms_by_name[best_arm_name]
-    best_parameters = best_arm.parameters
-    return best_parameters
 
 
 if __name__ == "__main__":

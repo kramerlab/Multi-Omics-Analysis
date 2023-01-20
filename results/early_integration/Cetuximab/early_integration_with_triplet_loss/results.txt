@@ -1,0 +1,55 @@
+Start experiment at 2022-10-30 12:07:35.695612
+	iteration = 0. 
+		str(best_parameters) = "{'mini_batch': 16, 'h_dim': 64, 'lr': 0.01, 'dropout_rate': 0.7, 'weight_decay': 0.1, 'margin': 1.0, 'epochs': 11, 'gamma': 0.1}"
+		Best Cetuximab validation Auroc = 0.690186265315614
+	iteration = 1. 
+		str(best_parameters) = "{'mini_batch': 8, 'h_dim': 256, 'lr': 0.001, 'dropout_rate': 0.7, 'weight_decay': 0.1, 'margin': 1.0, 'epochs': 8, 'gamma': 0.5}"
+		Best Cetuximab validation Auroc = 0.7152270942458274
+	iteration = 2. 
+		str(best_parameters) = "{'mini_batch': 8, 'h_dim': 64, 'lr': 0.01, 'dropout_rate': 0.7, 'weight_decay': 0.0001, 'margin': 0.2, 'epochs': 17, 'gamma': 0.5}"
+		Best Cetuximab validation Auroc = 0.7518595271316058
+	iteration = 3. 
+		str(best_parameters) = "{'mini_batch': 16, 'h_dim': 1024, 'lr': 0.01, 'dropout_rate': 0.1, 'weight_decay': 0.1, 'margin': 0.2, 'epochs': 10, 'gamma': 0.5}"
+		Best Cetuximab validation Auroc = 0.6968006282546871
+	iteration = 4. 
+		str(best_parameters) = "{'mini_batch': 16, 'h_dim': 128, 'lr': 0.001, 'dropout_rate': 0.5, 'weight_decay': 0.0001, 'margin': 0.2, 'epochs': 3, 'gamma': 0.5}"
+		Best Cetuximab validation Auroc = 0.7312444627431246
+	Minutes needed: 954	Mean Result for Cetuximab:
+
+		validation auroc max: 0.7518595271316058
+		validation auroc min: 0.690186265315614
+		validation auroc mean: 0.7170635955381717
+		validation auroc std: 0.022575231162316862
+
+		test auroc max: 0.7643537414965986
+		test auroc min: 0.5912698412698413
+		test auroc mean: 0.6992993197278912
+		test auroc std: 0.07022176457620753
+
+		test auprc max: 0.3795940921189301
+		test auprc min: 0.20106447871114225
+		test auprc mean: 0.297814752046054
+		test auprc std: 0.07879155124975937
+
+		extern auroc max: 0.52
+		extern auroc min: 0.3018181818181818
+		extern auroc mean: 0.3956363636363636
+		extern auroc std: 0.08764767939015465
+
+		extern auprc max: 0.10406444186870151
+		extern auprc min: 0.06957087280509851
+		extern auprc mean: 0.08179889697689738
+		extern auprc std: 0.013226314858322692
+
+
+ No skill predictor extern AUPRC: 0.08333333333333333 
+
+ test auroc list: [0.7643537414965986, 0.748015873015873, 0.5912698412698413, 0.7528344671201813, 0.6400226757369615] 
+
+ test auprc list: [0.3361236611318994, 0.3795940921189301, 0.20474501531861905, 0.3675465129496796, 0.20106447871114225] 
+
+ extern auroc list: [0.3527272727272727, 0.3236363636363636, 0.52, 0.3018181818181818, 0.48] 
+
+ extern auprc list: [0.07518752421301146, 0.07060377510688069, 0.10406444186870151, 0.06957087280509851, 0.08956787089079471] 
+
+ validation auroc list: [0.690186265315614, 0.7152270942458274, 0.7518595271316058, 0.6968006282546871, 0.7312444627431246] 

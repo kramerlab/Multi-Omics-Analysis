@@ -9,7 +9,8 @@ class AdaptiveEncoder(nn.Module):
             nn.Linear(input_size, output_size),
             nn.ReLU(),
             nn.BatchNorm1d(output_size),
-            nn.Dropout(dropout_rate))
+            nn.Dropout(dropout_rate),
+        )
 
     def forward(self, x):
         return self.layer(x)
@@ -22,5 +23,9 @@ class EarlyIntegration(nn.Module):
         self.classify = nn.Linear(output_size, 1)
 
     def forward(self, concatenated):
+        encoded = self.encoder(concatenated)
+        return self.classify(encoded)
+
+    def forward_with_features(self, concatenated):
         encoded = self.encoder(concatenated)
         return torch.squeeze(self.classify(encoded)), encoded

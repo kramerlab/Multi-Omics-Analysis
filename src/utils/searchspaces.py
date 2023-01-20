@@ -5,7 +5,16 @@ with open((Path(__file__).parent / "../config/hyperparameter.yaml"), "r") as str
     parameter = yaml.safe_load(stream)
 
 
-def create_moli_search_space():
+def create_moli_search_space(deactivate_triplet_loss):
+    if deactivate_triplet_loss:
+        gamma = {"name": "gamma", "value": 0, "value_type": "int", "type": "fixed"}
+    else:
+        gamma = {
+            "name": "gamma",
+            "values": parameter["gamma_choices"],
+            "value_type": "float",
+            "type": "choice",
+        }
     search_space = [
         {
             "name": "mini_batch",
@@ -88,12 +97,7 @@ def create_moli_search_space():
             "value_type": "float",
             "type": "choice",
         },
-        {
-            "name": "gamma",
-            "values": parameter["gamma_choices"],
-            "value_type": "float",
-            "type": "choice",
-        },
+        gamma,
         {
             "name": "margin",
             "values": parameter["margin_choices"],
@@ -390,127 +394,24 @@ def create_stacking_search_space(deactivate_triplet_loss):
     return search_space
 
 
-def create_stacking_splitted_search_space():
+def create_moma_search_space(add_triplet_loss):
+    if not add_triplet_loss:
+        gamma = {"name": "gamma", "value": 0, "value_type": "int", "type": "fixed"}
+    else:
+        gamma = {
+            "name": "gamma",
+            "values": parameter["gamma_choices"],
+            "value_type": "float",
+            "type": "choice",
+        }
     search_space = [
-        {
-            "name": "mini_batch",
-            "values": parameter["batch_size_choices"],
-            "type": "choice",
-            "value_type": "int",
-        },
-        {
-            "name": "h_dim_e_encode",
-            "values": parameter["dim_choice"],
-            "value_type": "int",
-            "type": "choice",
-        },
-        {
-            "name": "h_dim_m_encode",
-            "values": parameter["dim_choice"],
-            "value_type": "int",
-            "type": "choice",
-        },
-        {
-            "name": "h_dim_c_encode",
-            "values": parameter["dim_choice"],
-            "value_type": "int",
-            "type": "choice",
-        },
-        {
-            "name": "lr_e",
-            "values": parameter["learning_rate_choices"],
-            "value_type": "float",
-            "log_scale": True,
-            "type": "choice",
-        },
-        {
-            "name": "lr_m",
-            "values": parameter["learning_rate_choices"],
-            "value_type": "float",
-            "log_scale": True,
-            "type": "choice",
-        },
-        {
-            "name": "lr_c",
-            "values": parameter["learning_rate_choices"],
-            "value_type": "float",
-            "log_scale": True,
-            "type": "choice",
-        },
-        {
-            "name": "lr_clf",
-            "values": parameter["learning_rate_choices"],
-            "value_type": "float",
-            "log_scale": True,
-            "type": "choice",
-        },
-        {
-            "name": "dropout_e",
-            "values": parameter["drop_rate_choices"],
-            "value_type": "float",
-            "type": "choice",
-        },
-        {
-            "name": "dropout_m",
-            "values": parameter["drop_rate_choices"],
-            "value_type": "float",
-            "type": "choice",
-        },
-        {
-            "name": "dropout_c",
-            "values": parameter["drop_rate_choices"],
-            "value_type": "float",
-            "type": "choice",
-        },
-        {
-            "name": "dropout_clf",
-            "values": parameter["drop_rate_choices"],
-            "value_type": "float",
-            "type": "choice",
-        },
-        {
-            "name": "weight_decay",
-            "values": parameter["weight_decay_choices"],
-            "log_scale": True,
-            "value_type": "float",
-            "type": "choice",
-        },
+        gamma,
         {
             "name": "margin",
             "values": parameter["margin_choices"],
             "value_type": "float",
             "type": "choice",
         },
-        {
-            "name": "epochs_e",
-            "bounds": [parameter["epoch_lower"], parameter["epoch_upper"]],
-            "value_type": "int",
-            "type": "range",
-        },
-        {
-            "name": "epochs_m",
-            "bounds": [parameter["epoch_lower"], parameter["epoch_upper"]],
-            "value_type": "int",
-            "type": "range",
-        },
-        {
-            "name": "epochs_c",
-            "bounds": [parameter["epoch_lower"], parameter["epoch_upper"]],
-            "value_type": "int",
-            "type": "range",
-        },
-        {
-            "name": "epochs_clf",
-            "bounds": [parameter["epoch_lower"], parameter["epoch_upper"]],
-            "value_type": "int",
-            "type": "range",
-        },
-    ]
-    return search_space
-
-
-def create_moma_search_space():
-    search_space = [
         {
             "name": "mini_batch",
             "values": parameter["batch_size_choices"],
@@ -574,8 +475,24 @@ def create_moma_search_space():
     return search_space
 
 
-def create_omi_embed_search_space():
+def create_omi_embed_search_space(add_triplet_loss):
+    if not add_triplet_loss:
+        gamma = {"name": "gamma", "value": 0, "value_type": "int", "type": "fixed"}
+    else:
+        gamma = {
+            "name": "gamma",
+            "values": parameter["gamma_choices"],
+            "value_type": "float",
+            "type": "choice",
+        }
     search_space = [
+        gamma,
+        {
+            "name": "margin",
+            "values": parameter["margin_choices"],
+            "value_type": "float",
+            "type": "choice",
+        },
         {
             "name": "mini_batch",
             "values": parameter["batch_size_choices"],

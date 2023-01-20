@@ -1,0 +1,55 @@
+Start experiment at 2022-05-25 04:24:14.261802
+	iteration = 0. 
+		str(best_parameters) = "{'mini_batch': 16, 'latent_space_dim': 128, 'lr_vae': 0.001, 'lr_classifier': 0.01, 'weight_decay': 0.001, 'epochs_phase': 15, 'k_kl': 0.001, 'k_embed': 0.01, 'leaky_slope': 0.0001, 'dropout': 0.3, 'dim_1B': 64, 'dim_2B': 128, 'dim_1A': 64, 'dim_2A': 64, 'dim_1C': 32, 'dim_2C': 128, 'dim_3': 512, 'class_dim_1': 1024, 'class_dim_2': 128}"
+		Best Gemcitabine_pdx validation Auroc = 0.650097904428613
+	iteration = 1. 
+		str(best_parameters) = "{'mini_batch': 16, 'latent_space_dim': 128, 'lr_vae': 0.001, 'lr_classifier': 0.001, 'weight_decay': 0.0001, 'epochs_phase': 18, 'k_kl': 0.01, 'k_embed': 0.01, 'leaky_slope': 0.05, 'dropout': 0.1, 'dim_1B': 32, 'dim_2B': 32, 'dim_1A': 64, 'dim_2A': 32, 'dim_1C': 1024, 'dim_2C': 128, 'dim_3': 64, 'class_dim_1': 1024, 'class_dim_2': 512}"
+		Best Gemcitabine_pdx validation Auroc = 0.7111652710077907
+	iteration = 2. 
+		str(best_parameters) = "{'mini_batch': 8, 'latent_space_dim': 512, 'lr_vae': 0.01, 'lr_classifier': 0.001, 'weight_decay': 0.05, 'epochs_phase': 2, 'k_kl': 0.001, 'k_embed': 0.001, 'leaky_slope': 0.01, 'dropout': 0.7, 'dim_1B': 64, 'dim_2B': 128, 'dim_1A': 1024, 'dim_2A': 32, 'dim_1C': 256, 'dim_2C': 1024, 'dim_3': 64, 'class_dim_1': 1024, 'class_dim_2': 32}"
+		Best Gemcitabine_pdx validation Auroc = 0.671671249427155
+	iteration = 3. 
+		str(best_parameters) = "{'mini_batch': 16, 'latent_space_dim': 1024, 'lr_vae': 0.001, 'lr_classifier': 0.01, 'weight_decay': 0.01, 'epochs_phase': 18, 'k_kl': 0.001, 'k_embed': 0.01, 'leaky_slope': 0.1, 'dropout': 0.5, 'dim_1B': 32, 'dim_2B': 32, 'dim_1A': 128, 'dim_2A': 512, 'dim_1C': 32, 'dim_2C': 256, 'dim_3': 32, 'class_dim_1': 512, 'class_dim_2': 32}"
+		Best Gemcitabine_pdx validation Auroc = 0.6469916954825091
+	iteration = 4. 
+		str(best_parameters) = "{'mini_batch': 8, 'latent_space_dim': 32, 'lr_vae': 0.01, 'lr_classifier': 0.001, 'weight_decay': 0.0001, 'epochs_phase': 12, 'k_kl': 0.01, 'k_embed': 0.001, 'leaky_slope': 0.001, 'dropout': 0.3, 'dim_1B': 256, 'dim_2B': 128, 'dim_1A': 512, 'dim_2A': 128, 'dim_1C': 256, 'dim_2C': 64, 'dim_3': 512, 'class_dim_1': 512, 'class_dim_2': 128}"
+		Best Gemcitabine_pdx validation Auroc = 0.6973760224416392
+	Minutes needed: 642	Mean Result for Gemcitabine_pdx:
+
+		validation auroc max: 0.7111652710077907
+		validation auroc min: 0.6469916954825091
+		validation auroc mean: 0.6754604285575414
+		validation auroc std: 0.02538981410432103
+
+		test auroc max: 0.6990794016110472
+		test auroc min: 0.5537974683544304
+		test auroc mean: 0.6102991944764098
+		test auroc std: 0.06361398982822018
+
+		test auprc max: 0.17305267748881464
+		test auprc min: 0.07351091903606435
+		test auprc mean: 0.11499259191490452
+		test auprc std: 0.04238654519582213
+
+		extern auroc max: 0.7460317460317459
+		extern auroc min: 0.7063492063492063
+		extern auroc mean: 0.7333333333333333
+		extern auroc std: 0.013837774423938663
+
+		extern auprc max: 0.651883830455259
+		extern auprc min: 0.5166666666666666
+		extern auprc mean: 0.5864246864246864
+		extern auprc std: 0.055897592089596715
+
+
+ No skill predictor extern AUPRC: 0.28 
+
+ test auroc list: [0.6990794016110472, 0.5650172612197929, 0.5575373993095512, 0.6760644418872267, 0.5537974683544304] 
+
+ test auprc list: [0.15837551955330056, 0.095298655164065, 0.0747251883322781, 0.17305267748881464, 0.07351091903606435] 
+
+ extern auroc list: [0.7063492063492063, 0.7380952380952381, 0.7460317460317459, 0.7380952380952381, 0.7380952380952381] 
+
+ extern auprc list: [0.5256743256743257, 0.651883830455259, 0.6371882086167799, 0.6007104007104007, 0.5166666666666666] 
+
+ validation auroc list: [0.650097904428613, 0.7111652710077907, 0.671671249427155, 0.6469916954825091, 0.6973760224416392] 

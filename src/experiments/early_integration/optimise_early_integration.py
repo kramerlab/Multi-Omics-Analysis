@@ -15,8 +15,8 @@ sys.path.append(str(Path(__file__).resolve().parent.parent.parent))
 from utils.experiment_utils import create_generation_strategy
 from utils.input_arguments import get_cmd_arguments
 from utils.searchspaces import create_early_integration_search_space
-from utils.choose_gpu import get_free_gpu
-from training_early_integration import (
+from utils.choose_gpu import create_device
+from train_early_integration import (
     train_final,
     optimise_hyperparameter,
     reset_best_auroc,
@@ -25,6 +25,7 @@ from training_early_integration import (
 from utils import multi_omics_data
 from utils.visualisation import save_auroc_plots, save_auroc_with_variance_plots
 from utils.network_training_util import calculate_mean_and_std_auc
+
 
 file_directory = Path(__file__).parent
 
@@ -118,7 +119,7 @@ def early_integration(
         )
         generation_strategy = create_generation_strategy()
 
-        best_parameters, values, experiment, model = optimize(
+        best_parameters, _, experiment, _ = optimize(
             total_trials=search_iterations,
             experiment_name="Early-Integration",
             objective_name="auroc",
@@ -194,20 +195,6 @@ def early_integration(
     result_file.write(f"\n validation auroc list: {max_objective_list} \n")
 
     result_file.close()
-
-
-def create_device(gpu_number):
-    if torch.cuda.is_available():
-        if gpu_number is None:
-            free_gpu_id = get_free_gpu()
-        else:
-            free_gpu_id = gpu_number
-        device = torch.device(f"cuda:{free_gpu_id}")
-        pin_memory = False
-    else:
-        device = torch.device("cpu")
-        pin_memory = False
-    return device, pin_memory
 
 
 def extract_best_parameter(experiment):

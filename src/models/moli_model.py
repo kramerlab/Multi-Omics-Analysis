@@ -36,9 +36,16 @@ class Moli(nn.Module):
         self.cna_encoder = MOLIEncoder(input_sizes[2], output_sizes[2], dropout_rates[2])
         self.classifier = MOLIClassifier(output_sizes[0] + output_sizes[1] + output_sizes[2], dropout_rates[3])
 
-    def forward(self, expression, mutation, cna):
+    def forward_with_features(self, expression, mutation, cna):
         left_out = self.expression_encoder(expression)
         middle_out = self.mutation_encoder(mutation)
         right_out = self.cna_encoder(cna)
         left_middle_right = torch.cat((left_out, middle_out, right_out), 1)
         return [self.classifier(left_middle_right), left_middle_right]
+
+    def forward(self, expression, mutation, cna):
+        left_out = self.expression_encoder(expression)
+        middle_out = self.mutation_encoder(mutation)
+        right_out = self.cna_encoder(cna)
+        left_middle_right = torch.cat((left_out, middle_out, right_out), 1)
+        return self.classifier(left_middle_right)

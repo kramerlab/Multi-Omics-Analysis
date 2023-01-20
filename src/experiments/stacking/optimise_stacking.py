@@ -14,17 +14,10 @@ from sklearn.model_selection import StratifiedKFold
 sys.path.append(str(Path(__file__).resolve().parent.parent.parent))
 from utils.experiment_utils import create_generation_strategy
 from utils.input_arguments import get_cmd_arguments
-from utils.searchspaces import (
-    create_stacking_search_space,
-    create_stacking_splitted_search_space,
-)
+from utils.searchspaces import create_stacking_search_space
+
 from utils.choose_gpu import get_free_gpu
-from training_stacking import train_final, optimise_hyperparameter, reset_best_auroc
-from training_splitted_stacking import (
-    compute_splitted_metrics,
-    optimise_hyperparameter_splitted,
-    reset_best_auroc_splitted,
-)
+from src.experiments.stacking.train_stacking import train_final, optimise_hyperparameter, reset_best_auroc
 from utils import multi_omics_data
 from utils.visualisation import save_auroc_plots, save_auroc_with_variance_plots
 from utils.network_training_util import calculate_mean_and_std_auc, test
@@ -76,14 +69,7 @@ def stacking(
         data_path, drug_name, extern_dataset_name
     )
 
-    if stacking_type in (
-        "splitted_all",
-        "splitted_less_stacking",
-        "splitted_only_single",
-    ):
-        stacking_search_space = create_stacking_splitted_search_space()
-    else:
-        stacking_search_space = create_stacking_search_space(deactivate_triplet_loss)
+    stacking_search_space = create_stacking_search_space(deactivate_triplet_loss)
 
     torch.manual_seed(parameter["random_seed"])
     np.random.seed(parameter["random_seed"])
@@ -118,40 +104,21 @@ def stacking(
         x_test_c = gdsc_c[test_index]
         y_test = gdsc_r[test_index]
 
-        if stacking_type in (
-            "splitted_all",
-            "splitted_less_stacking",
-            "splitted_only_single",
-        ):
-            reset_best_auroc_splitted()
-            evaluation_function = (
-                lambda parameterization: optimise_hyperparameter_splitted(
-                    parameterization,
-                    x_train_validate_e,
-                    x_train_validate_m,
-                    x_train_validate_c,
-                    y_train_validate,
-                    device,
-                    pin_memory,
-                    stacking_type,
-                )
-            )
-            pass
-        else:
-            reset_best_auroc()
-            evaluation_function = lambda parameterization: optimise_hyperparameter(
-                parameterization,
-                x_train_validate_e,
-                x_train_validate_m,
-                x_train_validate_c,
-                y_train_validate,
-                device,
-                pin_memory,
-                stacking_type,
-            )
+        
+        reset_best_auroc()
+        evaluation_function = lambda parameterization: optimise_hyperparameter(
+            parameterization,
+            x_train_validate_e,
+            x_train_validate_m,
+            x_train_validate_c,
+            y_train_validate,
+            device,
+            pin_memory,
+            stacking_type,
+        )
         generation_strategy = create_generation_strategy()
 
-        best_parameters, values, experiment, model = optimize(
+        best_parameters, _, experiment, _ = optimize(
             total_trials=search_iterations,
             experiment_name="Integration-Stacking",
             objective_name="auroc",
@@ -177,51 +144,28 @@ def stacking(
 
         result_file.write(f"\t\t{str(best_parameters) = }\n")
 
-        if stacking_type in (
-            "splitted_all",
-            "splitted_less_stacking",
-            "splitted_only_single",
-        ):
-            auc_extern, auprc_extern, auc_test, auprc_test = compute_splitted_metrics(
-                x_test_e,
-                x_test_m,
-                x_test_c,
-                x_train_validate_e,
-                x_train_validate_m,
-                x_train_validate_c,
-                best_parameters,
-                device,
-                extern_e,
-                extern_m,
-                extern_c,
-                extern_r,
-                y_test,
-                y_train_validate,
-                stacking_type,
-            )
-        else:
-            model_final, scaler_final = train_final(
-                best_parameters,
-                x_train_validate_e,
-                x_train_validate_m,
-                x_train_validate_c,
-                y_train_validate,
-                device,
-                pin_memory,
-                stacking_type,
-            )
-            auc_test, auprc_test = test(
-                model_final, scaler_final, x_test_e, x_test_m, x_test_c, y_test, device
-            )
-            auc_extern, auprc_extern = test(
-                model_final,
-                scaler_final,
-                extern_e,
-                extern_m,
-                extern_c,
-                extern_r,
-                device,
-            )
+        model_final, scaler_final = train_final(
+            best_parameters,
+            x_train_validate_e,
+            x_train_validate_m,
+            x_train_validate_c,
+            y_train_validate,
+            device,
+            pin_memory,
+            stacking_type,
+        )
+        auc_test, auprc_test = test(
+            model_final, scaler_final, x_test_e, x_test_m, x_test_c, y_test, device
+        )
+        auc_extern, auprc_extern = test(
+            model_final,
+            scaler_final,
+            extern_e,
+            extern_m,
+            extern_c,
+            extern_r,
+            device,
+        )
 
         result_file.write(f"\t\tBest {drug_name} validation Auroc = {max_objective}\n")
         objectives_list.append(objectives)

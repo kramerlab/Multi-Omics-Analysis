@@ -1,0 +1,37 @@
+		Best Docetaxel validation Auroc = 0.8310178958719543
+		Best Docetaxel validation Auroc = 0.8115262985714805
+		Best Docetaxel validation Auroc = 0.8667849223946785
+		Best Docetaxel validation Auroc = 0.8138458555971549
+		Best Docetaxel validation Auroc = 0.8365949377824627
+	Minutes needed: 2930
+ test auroc list: [0.8456510809451986, 0.8159879336349924, 0.6500754147812972, 0.8697838109602816, 0.7813765182186235] 
+
+ test auprc list: [0.49170163559137187, 0.34845463742960014, 0.22018141341359315, 0.3834659132471892, 0.427198442583058] 
+
+ extern auroc list: [0.546875, 0.578125, 0.53125, 0.6875, 0.59375] 
+
+ extern auprc list: [0.5375270562770562, 0.5587037962037962, 0.5449675324675325, 0.6099587912087912, 0.5586465617715618] 
+	Mean Result for Docetaxel:
+
+		test auroc max: 0.8697838109602816
+		test auroc min: 0.6500754147812972
+		test auroc mean: 0.7925749517080786
+		test auroc std: 0.0771465800946443
+
+		test auprc max: 0.49170163559137187
+		test auprc min: 0.22018141341359315
+		test auprc mean: 0.37420040845296243
+		test auprc std: 0.09064863500164065
+
+		extern auroc max: 0.6875
+		extern auroc min: 0.53125
+		extern auroc mean: 0.5875
+		extern auroc std: 0.054665174014174686
+
+		extern auprc max: 0.6099587912087912
+		extern auprc min: 0.5375270562770562
+		extern auprc mean: 0.5619607475857475
+		extern auprc std: 0.025342369196968514
+
+
+ No skill predictor extern AUPRC: 0.5 

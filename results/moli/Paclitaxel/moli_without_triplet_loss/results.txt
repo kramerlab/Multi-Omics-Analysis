@@ -1,0 +1,55 @@
+Start experiment at 2022-11-01 13:37:56.931147
+	iteration = 0. 
+		str(best_parameters) = "{'mini_batch': 16, 'h_dim1': 1024, 'h_dim2': 128, 'h_dim3': 64, 'lr_e': 0.01, 'lr_m': 0.001, 'lr_c': 0.001, 'lr_cl': 0.001, 'dropout_rate_e': 0.7, 'dropout_rate_m': 0.1, 'dropout_rate_c': 0.5, 'dropout_rate_clf': 0.3, 'weight_decay': 0.01, 'margin': 1.0, 'epochs': 9, 'gamma': 0}"
+		Best Paclitaxel validation Auroc = 0.7351724137931035
+	iteration = 1. 
+		str(best_parameters) = "{'mini_batch': 8, 'h_dim1': 64, 'h_dim2': 256, 'h_dim3': 32, 'lr_e': 0.01, 'lr_m': 0.01, 'lr_c': 0.01, 'lr_cl': 0.01, 'dropout_rate_e': 0.7, 'dropout_rate_m': 0.3, 'dropout_rate_c': 0.1, 'dropout_rate_clf': 0.7, 'weight_decay': 0.05, 'margin': 1.0, 'epochs': 6, 'gamma': 0}"
+		Best Paclitaxel validation Auroc = 0.6870689655172414
+	iteration = 2. 
+		str(best_parameters) = "{'mini_batch': 16, 'h_dim1': 64, 'h_dim2': 32, 'h_dim3': 512, 'lr_e': 0.01, 'lr_m': 0.01, 'lr_c': 0.01, 'lr_cl': 0.01, 'dropout_rate_e': 0.5, 'dropout_rate_m': 0.5, 'dropout_rate_c': 0.7, 'dropout_rate_clf': 0.7, 'weight_decay': 0.01, 'margin': 0.2, 'epochs': 16, 'gamma': 0}"
+		Best Paclitaxel validation Auroc = 0.7525862068965518
+	iteration = 3. 
+		str(best_parameters) = "{'mini_batch': 32, 'h_dim1': 128, 'h_dim2': 32, 'h_dim3': 32, 'lr_e': 0.01, 'lr_m': 0.01, 'lr_c': 0.001, 'lr_cl': 0.001, 'dropout_rate_e': 0.5, 'dropout_rate_m': 0.3, 'dropout_rate_c': 0.3, 'dropout_rate_clf': 0.1, 'weight_decay': 0.0001, 'margin': 0.2, 'epochs': 2, 'gamma': 0}"
+		Best Paclitaxel validation Auroc = 0.7696230274693162
+	iteration = 4. 
+		str(best_parameters) = "{'mini_batch': 32, 'h_dim1': 128, 'h_dim2': 32, 'h_dim3': 256, 'lr_e': 0.01, 'lr_m': 0.01, 'lr_c': 0.001, 'lr_cl': 0.01, 'dropout_rate_e': 0.3, 'dropout_rate_m': 0.7, 'dropout_rate_c': 0.5, 'dropout_rate_clf': 0.1, 'weight_decay': 0.1, 'margin': 1.0, 'epochs': 5, 'gamma': 0}"
+		Best Paclitaxel validation Auroc = 0.6431034482758621
+	Minutes needed: 644	Mean Result for Paclitaxel:
+
+		validation auroc max: 0.7696230274693162
+		validation auroc min: 0.6431034482758621
+		validation auroc mean: 0.717510812390415
+		validation auroc std: 0.04630563745338929
+
+		test auroc max: 0.8361111111111112
+		test auroc min: 0.4876712328767123
+		test auroc mean: 0.6676319127346525
+		test auroc std: 0.11743236950401108
+
+		test auprc max: 0.29077905491698597
+		test auprc min: 0.08530087237626591
+		test auprc mean: 0.18820093082169204
+		test auprc std: 0.08361609173403167
+
+		extern auroc max: 0.6473684210526316
+		extern auroc min: 0.3789473684210527
+		extern auroc mean: 0.49789473684210533
+		extern auroc std: 0.12260333987036574
+
+		extern auprc max: 0.17439393939393938
+		extern auprc min: 0.10932232331727706
+		extern auprc mean: 0.13589220487601533
+		extern auprc std: 0.03088895589765783
+
+
+ No skill predictor extern AUPRC: 0.11627906976744186 
+
+ test auroc list: [0.7287671232876712, 0.4876712328767123, 0.6027397260273972, 0.6828703703703703, 0.8361111111111112] 
+
+ test auprc list: [0.17573639774859284, 0.08530087237626591, 0.11210038005812654, 0.277087949008489, 0.29077905491698597] 
+
+ extern auroc list: [0.6473684210526316, 0.4157894736842106, 0.4, 0.6473684210526316, 0.3789473684210527] 
+
+ extern auprc list: [0.172991452991453, 0.11277614858260018, 0.10997716009480715, 0.17439393939393938, 0.10932232331727706] 
+
+ validation auroc list: [0.7351724137931035, 0.6870689655172414, 0.7525862068965518, 0.7696230274693162, 0.6431034482758621] 

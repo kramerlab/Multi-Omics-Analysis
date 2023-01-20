@@ -1,0 +1,55 @@
+Start experiment at 2022-10-28 09:46:08.971773
+	iteration = 0. 
+		str(best_parameters) = "{'gamma': 0.1, 'margin': 0.2, 'mini_batch': 8, 'latent_space_dim': 32, 'lr_vae': 0.001, 'lr_classifier': 0.01, 'weight_decay': 0.001, 'epochs_phase': 13, 'k_kl': 0.001, 'k_embed': 0.001, 'leaky_slope': 0.05, 'dropout': 0.7, 'dim_1B': 1024, 'dim_1A': 32, 'dim_1C': 1024, 'class_dim_1': 32}"
+		Best Gemcitabine_pdx validation Auroc = 0.6577545862322765
+	iteration = 1. 
+		str(best_parameters) = "{'gamma': 0.1, 'margin': 0.5, 'mini_batch': 8, 'latent_space_dim': 64, 'lr_vae': 0.001, 'lr_classifier': 0.001, 'weight_decay': 0.1, 'epochs_phase': 19, 'k_kl': 0.01, 'k_embed': 0.01, 'leaky_slope': 0.0001, 'dropout': 0.5, 'dim_1B': 64, 'dim_1A': 64, 'dim_1C': 256, 'class_dim_1': 256}"
+		Best Gemcitabine_pdx validation Auroc = 0.7330864891888513
+	iteration = 2. 
+		str(best_parameters) = "{'gamma': 0.5, 'margin': 0.2, 'mini_batch': 16, 'latent_space_dim': 256, 'lr_vae': 0.001, 'lr_classifier': 0.01, 'weight_decay': 0.1, 'epochs_phase': 4, 'k_kl': 0.01, 'k_embed': 0.001, 'leaky_slope': 0.001, 'dropout': 0.3, 'dim_1B': 256, 'dim_1A': 1024, 'dim_1C': 256, 'class_dim_1': 128}"
+		Best Gemcitabine_pdx validation Auroc = 0.7026236303795359
+	iteration = 3. 
+		str(best_parameters) = "{'gamma': 0.0, 'margin': 0.5, 'mini_batch': 16, 'latent_space_dim': 1024, 'lr_vae': 0.001, 'lr_classifier': 0.01, 'weight_decay': 0.01, 'epochs_phase': 6, 'k_kl': 0.01, 'k_embed': 0.01, 'leaky_slope': 0.001, 'dropout': 0.3, 'dim_1B': 64, 'dim_1A': 256, 'dim_1C': 512, 'class_dim_1': 32}"
+		Best Gemcitabine_pdx validation Auroc = 0.6366291019178159
+	iteration = 4. 
+		str(best_parameters) = "{'gamma': 0.3, 'margin': 1.0, 'mini_batch': 16, 'latent_space_dim': 256, 'lr_vae': 0.001, 'lr_classifier': 0.01, 'weight_decay': 0.1, 'epochs_phase': 4, 'k_kl': 0.001, 'k_embed': 0.01, 'leaky_slope': 0.0001, 'dropout': 0.7, 'dim_1B': 1024, 'dim_1A': 1024, 'dim_1C': 256, 'class_dim_1': 32}"
+		Best Gemcitabine_pdx validation Auroc = 0.6797421155688873
+	Minutes needed: 1043	Mean Result for Gemcitabine_pdx:
+
+		validation auroc max: 0.7330864891888513
+		validation auroc min: 0.6366291019178159
+		validation auroc mean: 0.6819671846574734
+		validation auroc std: 0.033724218736976355
+
+		test auroc max: 0.6703107019562716
+		test auroc min: 0.5166858457997698
+		test auroc mean: 0.592313003452244
+		test auroc std: 0.05380498892068345
+
+		test auprc max: 0.15671094462631385
+		test auprc min: 0.0709405721069007
+		test auprc mean: 0.10435184129168278
+		test auprc std: 0.03190123118531723
+
+		extern auroc max: 0.6507936507936507
+		extern auroc min: 0.5793650793650793
+		extern auroc mean: 0.611111111111111
+		extern auroc std: 0.030532355653446565
+
+		extern auprc max: 0.5235260770975056
+		extern auprc min: 0.38314325730292115
+		extern auprc mean: 0.44390168100119454
+		extern auprc std: 0.057141992100675276
+
+
+ No skill predictor extern AUPRC: 0.28 
+
+ test auroc list: [0.5857307249712314, 0.5166858457997698, 0.6306098964326812, 0.6703107019562716, 0.5582278481012659] 
+
+ test auprc list: [0.08432221099191238, 0.08453490409677421, 0.12525057463651276, 0.15671094462631385, 0.0709405721069007] 
+
+ extern auroc list: [0.5793650793650793, 0.5793650793650793, 0.6428571428571428, 0.6507936507936507, 0.6031746031746033] 
+
+ extern auprc list: [0.5002248267728144, 0.3941537827252113, 0.38314325730292115, 0.5235260770975056, 0.41846046110751994] 
+
+ validation auroc list: [0.6577545862322765, 0.7330864891888513, 0.7026236303795359, 0.6366291019178159, 0.6797421155688873] 

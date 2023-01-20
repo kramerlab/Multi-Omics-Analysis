@@ -1,0 +1,55 @@
+Start experiment at 2022-04-06 17:51:06.751520
+	iteration = 0. 
+		str(best_parameters) = "{'mini_batch': 16, 'h_dim': 128, 'lr': 0.001, 'dropout_rate': 0.5, 'weight_decay': 0.01, 'gamma': 0.1, 'margin': 0.5, 'epochs': 8}"
+		Best Erlotinib validation Auroc = 0.689982269503546
+	iteration = 1. 
+		str(best_parameters) = "{'mini_batch': 8, 'h_dim': 64, 'lr': 0.01, 'dropout_rate': 0.1, 'weight_decay': 0.05, 'gamma': 0.3, 'margin': 0.5, 'epochs': 3}"
+		Best Erlotinib validation Auroc = 0.7176160541586073
+	iteration = 2. 
+		str(best_parameters) = "{'mini_batch': 16, 'h_dim': 512, 'lr': 0.01, 'dropout_rate': 0.3, 'weight_decay': 0.01, 'gamma': 0.0, 'margin': 0.5, 'epochs': 2}"
+		Best Erlotinib validation Auroc = 0.7251088007736944
+	iteration = 3. 
+		str(best_parameters) = "{'mini_batch': 8, 'h_dim': 256, 'lr': 0.01, 'dropout_rate': 0.3, 'weight_decay': 0.05, 'gamma': 0.3, 'margin': 0.2, 'epochs': 13}"
+		Best Erlotinib validation Auroc = 0.7081648936170213
+	iteration = 4. 
+		str(best_parameters) = "{'mini_batch': 8, 'h_dim': 128, 'lr': 0.01, 'dropout_rate': 0.1, 'weight_decay': 0.1, 'gamma': 0.3, 'margin': 1.0, 'epochs': 6}"
+		Best Erlotinib validation Auroc = 0.6647171179883945
+	Minutes needed: 700	Mean Result for Erlotinib:
+
+		validation auroc max: 0.7251088007736944
+		validation auroc min: 0.6647171179883945
+		validation auroc mean: 0.7011178272082528
+		validation auroc std: 0.021663017920854184
+
+		test auroc max: 0.7217948717948718
+		test auroc min: 0.48500651890482405
+		test auroc mean: 0.5966058235549762
+		test auroc std: 0.08845603290348428
+
+		test auprc max: 0.375242961978797
+		test auprc min: 0.25262220081814124
+		test auprc mean: 0.29405317194528136
+		test auprc std: 0.04204979941447507
+
+		extern auroc max: 0.7037037037037037
+		extern auroc min: 0.5185185185185185
+		extern auroc mean: 0.6444444444444444
+		extern auroc std: 0.06768765512035953
+
+		extern auprc max: 0.4935897435897436
+		extern auprc min: 0.18253968253968253
+		extern auprc mean: 0.2830710030710031
+		extern auprc std: 0.10886822856733333
+
+
+ No skill predictor extern AUPRC: 0.14285714285714285 
+
+ test auroc list: [0.7217948717948718, 0.5089743589743589, 0.6166666666666666, 0.6505867014341591, 0.48500651890482405] 
+
+ test auprc list: [0.2796088052646732, 0.25262220081814124, 0.280059849800206, 0.375242961978797, 0.28273204186458933] 
+
+ extern auroc list: [0.6481481481481481, 0.5185185185185185, 0.7037037037037037, 0.6481481481481481, 0.7037037037037037] 
+
+ extern auprc list: [0.2297979797979798, 0.18253968253968253, 0.26868686868686864, 0.24074074074074076, 0.4935897435897436] 
+
+ validation auroc list: [0.689982269503546, 0.7176160541586073, 0.7251088007736944, 0.7081648936170213, 0.6647171179883945] 

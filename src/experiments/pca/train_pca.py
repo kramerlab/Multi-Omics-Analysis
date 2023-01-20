@@ -55,7 +55,7 @@ def optimise_hyperparameter(parameterization, x_e, x_m, x_c, y, device):
         x_train_e = scaler_gdsc.transform(x_train_e)
 
         # Initialisation
-        loss_fn = get_loss_fn(None, None, None)
+        loss_fn = get_loss_fn(None, 0)
 
         pca_e = PCA(n_components=variance_e).fit(x_train_e)
         pca_m = PCA(n_components=variance_m).fit(x_train_m)
@@ -74,8 +74,6 @@ def optimise_hyperparameter(parameterization, x_e, x_m, x_c, y, device):
             lr=learning_rate,
             weight_decay=weight_decay,
         )
-
-        
 
         transformed_e = pca_e.transform(x_train_e)
         transformed_m = pca_m.transform(x_train_m)
@@ -163,7 +161,7 @@ def train_final(
     transformed_m = pca_m.transform(x_train_m)
     transformed_c = pca_c.transform(x_train_c)
 
-    loss_fn = get_loss_fn(None, None, None)
+    loss_fn = get_loss_fn(0, 0)
     input_sizes = e_dimension + m_dimension + c_dimension
     pca_model = Classifier(input_sizes, dropout_rate).to(device)
 
@@ -183,7 +181,6 @@ def train_final(
     sampler = WeightedRandomSampler(
         samples_weight.type("torch.DoubleTensor"), len(samples_weight), replacement=True
     )
-
 
     train_loader = create_data_loader(
         torch.FloatTensor(transformed_e),
